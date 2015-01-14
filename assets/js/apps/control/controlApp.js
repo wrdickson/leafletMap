@@ -111,6 +111,10 @@ function fireJqueryUi () {
         handles: "e"
     });
     
+    $("#mtoLogoa").tooltip({
+        content: "Drag me . . ."
+    });
+    
     //debug . . .
     $("#btnDemo").button({
         icons: {

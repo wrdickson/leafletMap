@@ -61,7 +61,7 @@
 	        <span id="mtoLogo" style="height: 26px;"><img src="<?php echo BASE_URL?>assets/img/mto_green.png"  style="height: 24px;padding: 2px; margin-top: 3px;"/>
 	            
 	        </span>
-            
+            <a id="mtoLogoa" href="#">drag</a>
 	        <button id="btnDemo" style="float: right; margin-top: 3px; margin-right: 3px;"></button>
 	    </div>
         <div id="menu-region" style="margin-right:2px;margin-left:2px;margin-bottom: 2px;"></div>

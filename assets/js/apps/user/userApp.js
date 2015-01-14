@@ -41,10 +41,12 @@ define([
     
     UserApp.User = Backbone.Model.extend({
         initialize: function(){
+            /*
             this.on("change", function () {
                 console.log("userchange", this);
                 
             });
+            */
         }
     });
     
@@ -58,14 +60,6 @@ define([
         baseUrl = dispatch.request("MapApp:getBaseUrl");
     };
     
-    dispatch.on ("mapData:loaded", function (data) {
-        console.log ("UserApp registers mapdData:loaded event");
-    });
-    
-    dispatch.on("mapData:xLoaded", function (data) {
-        console.log("xLoad", data);
-        //data.f();
-    });
     
     dispatch.on("user:logoff", function () {
         logoff();

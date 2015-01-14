@@ -10,8 +10,6 @@ define([
     dispatch.handlers = {};
     //i couldn't find a way to work out the arguments array  . . fuck it . . 10 params are plenty
     dispatch.request = function(event, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10){
-        console.log("request fired", event);
-        console.log(dispatch.handlers);
         if(dispatch.handlers[event]){
             try{
                 var response = dispatch.handlers[event](p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);

@@ -26,7 +26,7 @@ define([
     
     
     var MapModel = Backbone.Model.extend({
-        urlRoot: "http://localhost/mapProject/api/maps",
+        urlRoot: baseUrl + "api/maps",
         initialize: function(){
             var self = this;
             this.on("change", function(){
@@ -35,7 +35,6 @@ define([
             this.on("sync", function(){
 
             });
-            
         }   
     });
     var mapModel;
@@ -71,13 +70,19 @@ define([
         featureDetailCoordsRegion: "#featureDetailCoords"
 	});
     MapApp.loadMap = function (id) {
+        console.log("firing",id);
         mapModel = new MapModel({
             id: id
         });
         mapModel.fetch({
-            success: function (model, response, options){
+            success: function (model, response, options) {
                 MapApp.router.navigate("maps/" + id);
-                dispatch.trigger("mapModel:loaded", model, user);
+                console.log("mapModel " + id + " loaded:", model.toJSON());
+                LMap.burnMap(model, user);
+                dispatch.trigger("mapModel:burnControl", model, user);
+            },
+            error: function (error) {
+                console.log("error:", error);
             }
         });
     }
@@ -91,20 +96,14 @@ define([
         //start by defining the router and controller
         var RouteController = Marionette.Controller.extend({
             loadDefaultMap: function () {
+                var defaultMapId = 70;
                 console.log("loading default map");
+                MapApp.loadMap(70);
             },  
             loadMap: function (id) {
                 console.log("loadMap", id);
-                mapModel = new MapModel();
-                mapModel.set("id", id);
-                mapModel.fetch({
-                    success: function (model, response, options) {
-                        //burn the map . . .
-                        dispatch.trigger("mapModel:loaded", model, user);
-                    },
-                    error: function (model, response, options) {
-                    }
-                });
+                MapApp.loadMap(id);
+                
             }
         });
         var routeController = new RouteController();
@@ -119,7 +118,7 @@ define([
         if (Backbone.history) { 
             Backbone.history.start({
                 pushState: true,
-                root: "mapProject"
+                root: "leafletMap"
             });
         }
         //MapApp.router.navigate("something/else"); //works
